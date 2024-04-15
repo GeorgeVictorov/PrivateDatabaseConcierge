@@ -1,9 +1,6 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
-# Back to the primitive everywhere
-# Get csv in DQL mode
-
 def dql_keyboard() -> InlineKeyboardMarkup:
     """
     Create an inline keyboard with two buttons: "Get whole CSV" and "Abandon ship".
