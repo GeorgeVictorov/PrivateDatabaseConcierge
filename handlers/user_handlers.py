@@ -66,15 +66,10 @@ async def process_dql_query(message: Message, state: FSMContext):
         await message.reply(INFO['no_data'], parse_mode='HTML')
 
 
-@router.callback_query(F.data.in_({'get_csv', 'init_state'}), StateFilter(FSMUserMode.DQL_MODE))
+@router.callback_query(F.data.in_({'get_csv', 'init_state'}), StateFilter(FSMUserMode.DQL_MODE, FSMUserMode.DML_MODE))
 async def process_keyboard_actions(callback_query: CallbackQuery, state: FSMContext):
     """
     Process actions triggered by keyboard buttons for DQL mode.
-
-    Parameters:
-        callback_query (CallbackQuery): The callback query object.
-        state (FSMContext): The FSM state context.
-
     """
     action = callback_query.data
 
@@ -96,3 +91,4 @@ async def process_keyboard_actions(callback_query: CallbackQuery, state: FSMCont
             file_name = generate_filename(rows)
             await callback_query.message.edit_text(INFO['csv_text'], parse_mode='HTML')
             await callback_query.message.answer_document(BufferedInputFile(csv_data.encode(), filename=file_name))
+            await callback_query.message.answer(MESSAGES['/dql2'], reply_markup=dml_keyboard(), parse_mode='HTML')

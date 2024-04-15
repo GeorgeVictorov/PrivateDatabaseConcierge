@@ -36,6 +36,6 @@ def select_data(query: str) -> Tuple[List[str], List[Tuple]]:
             logging.info('Successfully fetched data.')
             return headers, rows
     except Exception as e:
-        logging.error(f'An error occurred in get_data function: {str(e)}.')
+        logging.error(f'An error occurred in select_data function: {str(e)}.')
         conn.rollback()
         return [], []
