@@ -7,6 +7,7 @@ from aiogram.types import Message, ContentType, CallbackQuery, BufferedInputFile
 from lexicon.lexicon import MESSAGES, INFO
 from keyboards.keyboards import dql_keyboard, dml_keyboard
 from database.dql import select_data, clear_cached_data
+from database.dml import change_data
 from filters.admin import IsAdmin
 from services.parse_data import parse_sql_data, generate_filename, data_to_csv
 
@@ -35,7 +36,7 @@ async def dql_mode(message: Message, state: FSMContext):
     """
     Handle the /dql command to enter Data Query Language mode.
     """
-    await message.answer(MESSAGES["/dql"], reply_markup=dml_keyboard(), parse_mode='HTML')
+    await message.answer(MESSAGES['/dql'], reply_markup=dml_keyboard(), parse_mode='HTML')
     await state.set_state(FSMUserMode.DQL_MODE)
 
 
@@ -45,7 +46,7 @@ async def dml_mode(message: Message, state: FSMContext):
     Handle the /dml command to enter Data Manipulation Language mode.
     This command is available only for admins.
     """
-    await message.answer(MESSAGES["/dml"], reply_markup=dml_keyboard(), parse_mode='HTML')
+    await message.answer(MESSAGES['/dml'], reply_markup=dml_keyboard(), parse_mode='HTML')
     await state.set_state(FSMUserMode.DML_MODE)
 
 
@@ -56,6 +57,8 @@ async def process_dql_query(message: Message, state: FSMContext):
     """
     query = message.text.strip()
     await state.update_data(query=query)
+
+    clear_cached_data()
 
     columns, rows = select_data(query)
     if columns and rows:
@@ -92,3 +95,19 @@ async def process_keyboard_actions(callback_query: CallbackQuery, state: FSMCont
             await callback_query.message.edit_text(INFO['csv_text'], parse_mode='HTML')
             await callback_query.message.answer_document(BufferedInputFile(csv_data.encode(), filename=file_name))
             await callback_query.message.answer(MESSAGES['/dql2'], reply_markup=dml_keyboard(), parse_mode='HTML')
+
+
+@router.message(F.content_type == ContentType.TEXT, StateFilter(FSMUserMode.DML_MODE))
+async def process_dml_query(message: Message):
+    """
+    Process a DML query provided in a text message.
+    """
+    query = message.text.strip()
+
+    query_result = change_data(query)
+
+    if query_result:
+        await message.answer(query_result, parse_mode='HTML')
+        await message.answer(INFO['action'], parse_mode='HTML', reply_markup=dml_keyboard())
+    else:
+        await message.answer(INFO['no_change'], parse_mode='HTML')

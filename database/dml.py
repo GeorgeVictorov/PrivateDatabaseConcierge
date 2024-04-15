@@ -3,7 +3,7 @@ import logging
 from database.db import Database
 
 
-def change_data(query: str) -> str:
+def change_data(query: str) -> str | None:
     """
     Execute a DML query and return a message indicating success or failure.
 
@@ -20,8 +20,8 @@ def change_data(query: str) -> str:
             cursor.execute(query)
             conn.commit()
             logging.info('Successfully changed data.')
-            return 'Data successfully changed.'
+            return '<b>Data successfully changed.</b>'
     except Exception as e:
         logging.error(f'An error occurred in change_data function: {str(e)}.')
         conn.rollback()
-        return f'Failed to change data: {e}'
+        return None

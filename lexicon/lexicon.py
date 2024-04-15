@@ -10,6 +10,9 @@ MESSAGES: dict[str, str] = {
              'To return, press the button below.',
     '/dml': '<b>You are now in DML mode.</b>\n\n'
             'Enter your <i>SQL DML query</i> (insert, update, delete).\n\n'
+            'To return, press the button below.',
+    '/dml2': '<b>You are now in DML mode.</b>\n\n'
+            'Enter your <i>SQL DML query</i> (insert, update, delete).\n\n'
             'To return, press the button below.'
 }
 
@@ -24,5 +27,6 @@ INFO: dict[str, str] = {
     'action': '<b>Choose an action:</b>',
     'no_data': '<b>No data found for the provided query.</b>',
     'abandon': '<b>Stop all the clocks, cut off the telephone.</b>',
-    'csv_text': '<b>CSV file with selected data:</b>'
+    'csv_text': '<b>CSV file with selected data:</b>',
+    'no_change': '<b>Failed to change data.</b>'
 }
