@@ -1,9 +1,18 @@
 import logging
 from typing import List, Tuple
 from database.db import Database
+from cachetools import cached, TTLCache
+
+cache = TTLCache(maxsize=100, ttl=300)
 
 
-def get_data(query: str) -> Tuple[List[str], List[Tuple]]:
+def clear_cached_data():
+    cache.clear()
+    logging.info('Cached users config cleared.')
+
+
+@cached(cache)
+def select_data(query: str) -> Tuple[List[str], List[Tuple]]:
     database = Database()
     conn = database.get_connection()
     try:
@@ -15,6 +24,5 @@ def get_data(query: str) -> Tuple[List[str], List[Tuple]]:
             return headers, rows
     except Exception as e:
         logging.error(f'An error occurred in get_data function: {str(e)}.')
+        conn.rollback()
         return [], []
-    finally:
-        database.close_database()

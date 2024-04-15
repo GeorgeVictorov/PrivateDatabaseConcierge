@@ -3,9 +3,11 @@ MESSAGES: dict[str, str] = {
               'Press /dql to enter DQL mode.\n'
               'Press /dml to enter DML mode.',
     '/dql': '<b>You are now in DQL mode.</b>\n\n'
-            'Enter your <i>SQL SELECT query</i>, use double quotes if needed.',
+            'Enter your <i>SQL SELECT query</i>.\n\n'
+            'To return, press the button below.',
     '/dml': '<b>You are now in DML mode.</b>\n\n'
-            'Enter your <i>SQL DML query</i> (insert, update, delete), use double quotes if needed.'
+            'Enter your <i>SQL DML query</i> (insert, update, delete).\n\n'
+            'To return, press the button below.'
 }
 
 LEXICON_COMMANDS: dict[str, str] = {
@@ -13,4 +15,11 @@ LEXICON_COMMANDS: dict[str, str] = {
     '/dql': 'The same old cars, same old streets.',
     '/dml': 'I\'ve watched you change.',
     '/cancel': 'Abandon ship.'
+}
+
+INFO: dict[str, str] = {
+    'action': '<b>Choose an action:</b>',
+    'no_data': '<b>No data found for the provided query.</b>',
+    'abandon': '<b>Stop all the clocks, cut off the telephone.</b>',
+    'csv_text': '<b>CSV file with selected data:</b>'
 }
