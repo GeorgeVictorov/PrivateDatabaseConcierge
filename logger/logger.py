@@ -1,9 +1,19 @@
-import os
 import logging
+import os
 from logging.handlers import TimedRotatingFileHandler
 
 
 def setup_logger(logs_folder='logs', log_file='bot.log'):
+    """
+    Set up a logger with both console and file handlers.
+
+    Parameters:
+        logs_folder (str): The folder path where log files will be stored. Defaults to 'logs'.
+        log_file (str): The name of the log file. Defaults to 'bot.log'.
+
+    Returns:
+        logging.Logger: The configured logger object.
+    """
     if not os.path.exists(logs_folder):
         os.makedirs(logs_folder)
 
