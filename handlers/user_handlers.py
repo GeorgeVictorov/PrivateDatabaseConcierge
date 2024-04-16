@@ -56,17 +56,23 @@ async def process_dql_query(message: Message, state: FSMContext):
     Process a DQL query provided in a text message.
     """
     query = message.text.strip()
-    await state.update_data(query=query)
 
-    clear_cached_data()
+    sql_cmd = query.split()[0].upper()
 
-    columns, rows = select_data(query)
-    if columns and rows:
-        parsed_data = parse_sql_data(columns, rows)
-        await message.answer(parsed_data, parse_mode='HTML')
-        await message.answer(INFO['action'], parse_mode='HTML', reply_markup=dql_keyboard())
+    if sql_cmd == 'SELECT':
+        await state.update_data(query=query)
+
+        clear_cached_data()
+
+        columns, rows = select_data(query)
+        if columns and rows:
+            parsed_data = parse_sql_data(columns, rows)
+            await message.answer(parsed_data, parse_mode='HTML')
+            await message.answer(INFO['action'], parse_mode='HTML', reply_markup=dql_keyboard())
+        else:
+            await message.answer(INFO['no_data'], parse_mode='HTML')
     else:
-        await message.reply(INFO['no_data'], parse_mode='HTML')
+        await message.answer(INFO['dql_forbidden'], parse_mode='HTML')
 
 
 @router.callback_query(F.data.in_({'get_csv', 'init_state'}), StateFilter(FSMUserMode.DQL_MODE, FSMUserMode.DML_MODE))
@@ -104,10 +110,15 @@ async def process_dml_query(message: Message):
     """
     query = message.text.strip()
 
-    query_result = change_data(query)
+    sql_cmd = query.split()[0].upper()
 
-    if query_result:
-        await message.answer(query_result, parse_mode='HTML')
-        await message.answer(INFO['action'], parse_mode='HTML', reply_markup=dml_keyboard())
+    if sql_cmd in ['INSERT', 'UPDATE', 'DELETE']:
+        query_result = change_data(query)
+
+        if query_result:
+            await message.answer(query_result, parse_mode='HTML')
+            await message.answer(INFO['action'], parse_mode='HTML', reply_markup=dml_keyboard())
+        else:
+            await message.answer(INFO['no_change'], parse_mode='HTML')
     else:
-        await message.answer(INFO['no_change'], parse_mode='HTML')
+        await message.answer(INFO['dml_forbidden'], parse_mode='HTML')

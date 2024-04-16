@@ -22,5 +22,7 @@ INFO: dict[str, str] = {
     'no_data': '<b>No data found for the provided query.</b>',
     'abandon': '<b>Stop all the clocks, cut off the telephone.</b>',
     'csv_text': '<b>CSV file with selected data:</b>',
-    'no_change': '<b>Failed to change data.</b>'
+    'no_change': '<b>Failed to change data.</b>',
+    'dql_forbidden': '<b>Only SELECT operations are allowed.</b>',
+    'dml_forbidden': '<b>Only INSERT, UPDATE, and DELETE operations are allowed.</b>'
 }
