@@ -1,7 +1,7 @@
 # Private Database Concierge
 
-Private Database Concierge is a simple tool designed to manage your **[PostgreSQL database](https://www.postgresql.org)
-**
+Private Database Concierge is a simple tool designed to manage your
+**[PostgreSQL database](https://www.postgresql.org)**
 directly from Telegram.
 
 With this bot, you can execute SQL queries by sending them directly to the chat.
