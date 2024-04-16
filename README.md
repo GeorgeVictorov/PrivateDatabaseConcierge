@@ -27,9 +27,8 @@ ___
 
 # Technologies Used
 
-The project employs **[aiogram](https://github.com/aiogram/aiogram)** and *
-*[psycopg](https://github.com/psycopg/psycopg)** for
-its core functionalities.
+The project employs **[aiogram](https://github.com/aiogram/aiogram)** and
+**[psycopg](https://github.com/psycopg/psycopg)** for its core functionalities.
 ___
 
 # Overview
