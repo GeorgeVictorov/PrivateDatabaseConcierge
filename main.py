@@ -1,8 +1,10 @@
 import asyncio
-import signal
 import logging
+import signal
+
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
+
 from config_data.config import load_config
 from handlers import user_handlers
 from keyboards.main_menu import set_main_menu

@@ -2,16 +2,10 @@ MESSAGES: dict[str, str] = {
     '/start': '<b>Welcome to private database concierge!</b>\n\n'
               'Press /dql to enter DQL mode.\n'
               'Press /dml to enter DML mode.',
-    '/dql': '<b>You are now in DQL mode.</b>\n\n'
+    '/dql': '<b>You are in DQL mode.</b>\n\n'
             'Enter your <i>SQL SELECT query</i>.\n\n'
             'To return, press the button below.',
-    '/dql2': '<b>You are still in DQL mode.</b>\n\n'
-             'Enter your <i>SQL SELECT query</i>.\n\n'
-             'To return, press the button below.',
-    '/dml': '<b>You are now in DML mode.</b>\n\n'
-            'Enter your <i>SQL DML query</i> (insert, update, delete).\n\n'
-            'To return, press the button below.',
-    '/dml2': '<b>You are now in DML mode.</b>\n\n'
+    '/dml': '<b>You are in DML mode.</b>\n\n'
             'Enter your <i>SQL DML query</i> (insert, update, delete).\n\n'
             'To return, press the button below.'
 }

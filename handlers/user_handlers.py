@@ -1,14 +1,14 @@
-from states.states import FSMUserMode
 from aiogram import F, Router
 from aiogram.filters import Command, CommandStart, StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import default_state
 from aiogram.types import Message, ContentType, CallbackQuery, BufferedInputFile
-from lexicon.lexicon import MESSAGES, INFO
-from keyboards.keyboards import dql_keyboard, dml_keyboard
-from database.dql import select_data, clear_cached_data
 from database.dml import change_data
+from database.dql import select_data, clear_cached_data
 from filters.admin import IsAdmin
+from keyboards.keyboards import dql_keyboard, dml_keyboard
+from lexicon.lexicon import MESSAGES, INFO
+from states.states import FSMUserMode
 from services.parse_data import parse_sql_data, generate_filename, data_to_csv
 
 router = Router()
@@ -94,7 +94,7 @@ async def process_keyboard_actions(callback_query: CallbackQuery, state: FSMCont
             file_name = generate_filename(rows)
             await callback_query.message.edit_text(INFO['csv_text'], parse_mode='HTML')
             await callback_query.message.answer_document(BufferedInputFile(csv_data.encode(), filename=file_name))
-            await callback_query.message.answer(MESSAGES['/dql2'], reply_markup=dml_keyboard(), parse_mode='HTML')
+            await callback_query.message.answer(MESSAGES['/dql'], reply_markup=dml_keyboard(), parse_mode='HTML')
 
 
 @router.message(F.content_type == ContentType.TEXT, StateFilter(FSMUserMode.DML_MODE))

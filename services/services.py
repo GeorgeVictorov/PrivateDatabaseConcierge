@@ -1,6 +1,7 @@
-import sys
 import hashlib
 import logging
+import sys
+
 from database.db import Database
 
 
