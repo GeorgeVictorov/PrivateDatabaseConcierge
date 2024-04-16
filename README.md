@@ -26,4 +26,4 @@ its core functionalities.
 
 # Overview
 
-![privatedbc.gif](..%2F..%2FDownloads%2Fprivatedbc.gif)
+![privatedbc-ezgif com-resize](https://github.com/GeorgeVictorov/PrivateDatabaseConcierge/assets/120365126/1de90ba8-6a17-48d5-83c5-693085244dfe)
