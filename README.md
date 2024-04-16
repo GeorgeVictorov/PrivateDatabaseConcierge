@@ -25,3 +25,5 @@ The project employs [aiogram](https://github.com/aiogram/aiogram) and [psycopg](
 its core functionalities.
 
 # Overview
+
+![privatedbc.gif](..%2F..%2FDownloads%2Fprivatedbc.gif)
